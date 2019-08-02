@@ -2,6 +2,7 @@ package game.mysql.hibernate;
 
 
 import game.gamer.Player;
+import game.mysql.hibernate.dao.PlayerDao;
 import game.mysql.hibernate.repository.SavePlayerGame;
 import game.mysql.hibernate.utils.HibernateUtils;
 import game.realization.MarksForBoard;
@@ -20,27 +21,40 @@ public class MainHibernate {
 
         Player playerB2 = new Player("B2-0", MarksForBoard.MARK_0.getMark());
 
-
         new RealizationGame().play(playerB1,playerB2);
         new RealizationGame().play(playerB1,playerB2);
         new RealizationGame().play(playerB1,playerB2);
         new RealizationGame().play(playerB1,playerB2);
         new RealizationGame().play(playerB1,playerB2);
         new RealizationGame().play(playerB1,playerB2);
-
-        sessionFactory = HibernateUtils.getSessionFactory();
-        Session session = sessionFactory.openSession();
-
-        session.beginTransaction();
 
         SavePlayerGame savePlayer1 = new SavePlayerGame(playerB1);
-        session.save(savePlayer1.getMatch());
+
+        new PlayerDao().update(savePlayer1.getMatch());
 
         SavePlayerGame savePlayer2 = new SavePlayerGame(playerB2);
-        session.save(savePlayer2.getMatch());
 
-        session.getTransaction().commit();
+        new PlayerDao().update(savePlayer2.getMatch());
 
-        sessionFactory.close();
+        System.out.println(new PlayerDao().findById(playerB1.getName()).getName());
+        System.out.println(new PlayerDao().findById(playerB2.getName()).getName());
+
     }
 }
+
+/**
+ *         sessionFactory = HibernateUtils.getSessionFactory();
+ *         Session session = sessionFactory.openSession();
+ *
+ *         session.beginTransaction();
+ *
+ *         SavePlayerGame savePlayer1 = new SavePlayerGame(playerB1);
+ *         session.save(savePlayer1.getMatch());
+ *
+ *         SavePlayerGame savePlayer2 = new SavePlayerGame(playerB2);
+ *         session.save(savePlayer2.getMatch());
+ *
+ *         session.getTransaction().commit();
+ *
+ *         sessionFactory.close();
+ */
