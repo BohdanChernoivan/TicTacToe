@@ -17,7 +17,7 @@ public class Main {
 
         realizationGame.play(playerB1, playerB2);
 
-        SaveCvsFile saveCvsFile = new SaveCvsFile();
+        SaveCvsFile saveCvsFile = new SaveCvsFile("GameFile.cvs");
         saveCvsFile.createFileInCVS(realizationGame);
 
     }
