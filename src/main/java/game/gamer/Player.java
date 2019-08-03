@@ -2,19 +2,13 @@ package game.gamer;
 
 import java.util.Random;
 
-public class Player implements Statistic {
+public class Player extends GameStatistic {
 
     private final String name;
 
     private final String mark;
 
     private Random random;
-
-    private int win;
-
-    private int loss;
-
-    private int draw;
 
     public Player(String name, String mark) {
         this.name = name;
@@ -36,30 +30,35 @@ public class Player implements Statistic {
         return random.nextInt(board.length);
     }
 
+
     @Override
     public void win() {
-        this.win++;
+        super.win();
     }
 
     @Override
     public void loss() {
-        this.loss++;
+        super.loss();
     }
 
     @Override
     public void draw() {
-        this.draw++;
+        super.draw();
     }
 
+    @Override
     public int getWin() {
-        return win;
+        return super.getWin();
     }
 
+    @Override
     public int getLoss() {
-        return loss;
+        return super.getLoss();
     }
 
+    @Override
     public int getDraw() {
-        return draw;
+        return super.getDraw();
     }
+
 }
